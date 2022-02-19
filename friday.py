@@ -3,6 +3,9 @@ import datetime
 import speech_recognition as sr
 import wikipedia
 import webbrowser
+import music
+import os
+import random
 
 engine=pyttsx3.init('sapi5')
 voices=engine.getProperty('voices')
@@ -55,13 +58,28 @@ if __name__=='__main__':
             print(results)
             speak(results)
 
-        elif 'open youtube' or 'youtube' in query:
+        elif 'open youtube' in query:
             speak("OK! opening youtube in your browser")
             webbrowser.open("https://youtube.com")
 
-        elif 'open google' or 'google' in query:
+        elif 'open google' in query:
             speak("OK! opening google in your browser")
             webbrowser.open("https://google.com")
 
+        elif 'play music' in query:
+            speak("Okey Playing a song")
+            webbrowser.open("https://music.youtube.com/watch?v=0p-YUiyWf-A&list=OLAK5uy_koFYb2Butc5XtA9h5dXAb6elXRRUedmVA")
 
-    
+        elif 'play song' in query:
+            music_dir="C:\\Users\\anshu\\Videos\\Friday AI assistent\\songs"
+            songs=os.listdir(music_dir)
+            print(songs)
+            x=random.randint(0,len(songs))
+            os.startfile(os.path.join(music_dir, songs[x]))
+
+        elif 'time' in query:
+            strTime=datetime.datetime.now().strftime("%H:%S:%S")
+            speak(f"Sir the time is {strTime}")
+
+        elif 'open chrome' in query:
+            path='C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
