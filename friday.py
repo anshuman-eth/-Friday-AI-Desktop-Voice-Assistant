@@ -6,6 +6,7 @@ import webbrowser
 import music
 import os
 import random
+import smtplib
 
 engine=pyttsx3.init('sapi5')
 voices=engine.getProperty('voices')
@@ -43,6 +44,14 @@ def takeCommand():
         print("Say that again please....")
         return "None"
     return query
+def sendEmail(to,content):
+    server=smtplib.SMTP('smtp.gmail.com', 587)
+    server.ehlo()
+    server.starttls()
+    server.login('anshuman007619@gmail.com', 'passwordHere')
+    server.sendmail('anshuman007619@gmail.com',to ,content)
+    server.close()
+
 
 if __name__=='__main__':
     
@@ -82,4 +91,17 @@ if __name__=='__main__':
             speak(f"Sir the time is {strTime}")
 
         elif 'open chrome' in query:
-            path='C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
+            chromepath='C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
+            speak("Ok i am Opening chrome")
+            os.startfile(chromepath)
+
+        elif 'email to anshuman' in query:
+            try:
+                content=takeCommand()
+                to='anshu007619@gmail.com'
+                sendEmail(to,content)
+                speak("Email has be sent.")
+            except Exception as e:
+                print(e)
+                speak("Not able to send email at this time. I am really sorry.")
+            
